@@ -18,26 +18,33 @@ class Config:
         self.account_email = envdict['ACCOUNT_EMAIL']
 
 
-    def _api_get_list(self, url, params=None):
-        # Should handle pagination, etc
-        headers = {
-            'Authorization': f'Bearer {self.account_token}',
-            'Harvest-Account-ID': self.account_id,
-            'User-Agent': f'Project Tracking Email ({self.account_email})',
-        }
-        res = requests.get(url, headers=headers, params=params)
-        return res.json
+    def _api_get_list(self, url, results_key, params=None):
+        data = []
+        while True:
+            headers = {
+                'Authorization': f'Bearer {self.account_token}',
+                'Harvest-Account-ID': self.account_id,
+                'User-Agent': f'Project Tracking Email ({self.account_email})',
+            }
+            res = requests.get(url, headers=headers, params=params).json()
+            data.extend(res[results_key])
+            if res.get('next'):
+                url = res['links']['next']
+            else:
+                break
+        return data
 
     def my_projects(self):
-        response = self._api_get_list('https://api.harvestapp.com/api/v2/users/me/project_assignments')
-        assignments = response.project_assignments
-        mine = [assignment for assignment in assignments if assignment.project.is_billable]
-        return [assignment.project for assignment in mine]
+        assignments = self._api_get_list('https://api.harvestapp.com/api/v2/users/me/project_assignments',
+                                      results_key='project_assignments')
+        mine = [assignment for assignment in assignments if assignment['project']['is_billable']]
+        return [assignment['project'] for assignment in mine]
 
     def active_projects(self):
-        response = self._api_get_list('https://api.harvestapp.com/v2/reports/project_budget',
+        active = self._api_get_list('https://api.harvestapp.com/v2/reports/project_budget',
+                                      results_key='results',
                                       params={'is_active': 'true'})
-        return response.results
+        return active
 
 
 if __name__ == '__main__':
