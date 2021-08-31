@@ -15,6 +15,7 @@ class Config:
         self.account_id = envdict['ACCOUNT_ID']
         self.account_token = envdict['ACCOUNT_TOKEN']
         self.account_user_id = envdict['ACCOUNT_USER_ID']
+        self.account_email = envdict['ACCOUNT_EMAIL']
 
 
     def _api_get_list(self, url, params=None):
@@ -22,7 +23,7 @@ class Config:
         headers = {
             'Authorization': f'Bearer {self.account_token}',
             'Harvest-Account-ID': self.account_id,
-            'User-Agent': 'Project Tracking Email (mark@condense.com.au)',
+            'User-Agent': f'Project Tracking Email ({self.account_email})',
         }
         res = requests.get(url, headers=headers, params=params)
         return res.json
