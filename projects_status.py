@@ -3,7 +3,7 @@ import os
 import requests
 
 
-class Config(object):
+class Config:
     def __init__(self, envdict=None):
         super().__init__()
         if not envdict:
