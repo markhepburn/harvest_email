@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import os
+
+from mako.template import Template
 import requests
 
 
@@ -61,6 +63,12 @@ class Config:
         prioritised = sorted(projects,
                              key=lambda p: (not p['mine'], p['budget_remaining'] / p['budget']))
         return prioritised
+
+
+def format_email(projects):
+    tmpl = Template(filename="email.tpl")
+    txt = tmpl.render(projects=projects)
+    print(txt)
 
 
 if __name__ == '__main__':
