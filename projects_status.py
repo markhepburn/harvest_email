@@ -39,8 +39,9 @@ class Config:
         is assigned to.  Useful for interactive testing."""
         assignments = self._api_get_list('https://api.harvestapp.com/api/v2/users/me/project_assignments',
                                       results_key='project_assignments')
-        mine = [assignment for assignment in assignments if assignment['project']['is_billable']]
-        return [assignment['project'] for assignment in mine]
+        mine = [assignment['project'] for assignment in assignments
+                if assignment['project']['is_billable']]
+        return mine
 
     def active_projects(self):
         """Returns a list of active projects.  Useful for interactive
@@ -54,9 +55,15 @@ class Config:
         """Main data entry point; returns a list of projects in order
         of most-to-least urgent"""
         my_ids = set(project['id'] for project in self.my_projects())
-        details = [project for project in self.active_projects()
-                   if project['project_id'] in my_ids]
-        prioritised = sorted(details, key=lambda p: p['budget_remaining'] / p['budget'])
+        # partition into mine/others, sort both by budget "hotness", concat:
+        mine = [project for project in self.active_projects()
+                if project['project_id'] in my_ids]
+        notmine = [project for project in self.active_projects()
+                   if project['project_id'] not in my_ids]
+        mine_prioritised = sorted(mine, key=lambda p: p['budget_remaining'] / p['budget'])
+        notmine_prioritised = sorted(notmine, key=lambda p: p['budget_remaining'] / p['budget'])
+        prioritised = list(mine_prioritised)
+        prioritised.extend(notmine_prioritised)
         return prioritised
 
 
