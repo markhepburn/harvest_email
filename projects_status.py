@@ -55,15 +55,11 @@ class Config:
         """Main data entry point; returns a list of projects in order
         of most-to-least urgent"""
         my_ids = set(project['id'] for project in self.my_projects())
-        # partition into mine/others, sort both by budget "hotness", concat:
-        mine = [project for project in self.active_projects()
-                if project['project_id'] in my_ids]
-        notmine = [project for project in self.active_projects()
-                   if project['project_id'] not in my_ids]
-        mine_prioritised = sorted(mine, key=lambda p: p['budget_remaining'] / p['budget'])
-        notmine_prioritised = sorted(notmine, key=lambda p: p['budget_remaining'] / p['budget'])
-        prioritised = list(mine_prioritised)
-        prioritised.extend(notmine_prioritised)
+        # Want sorted by mine, then by budget "hotness"
+        projects = [dict(project, mine=project['project_id'] in my_ids)
+                    for project in self.active_projects()]
+        prioritised = sorted(projects,
+                             key=lambda p: (not p['mine'], p['budget_remaining'] / p['budget']))
         return prioritised
 
 
