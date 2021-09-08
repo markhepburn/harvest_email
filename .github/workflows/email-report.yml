@@ -1,5 +1,6 @@
 name: Harvest Budget Summary Report
 on:
+  workflow_dispatch:            # Enable manual invocation for testing
   schedule:
     - cron: "0 22 * * THU"      # 8am Fri, AEST
 
