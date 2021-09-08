@@ -65,6 +65,12 @@ class Config:
         return prioritised
 
 
+def enrich_data(projects):
+    """Placeholder for now; thinking is to add styling like 'red for
+    getting hot', without calculating that in the template"""
+    return projects
+
+
 def format_email(projects):
     tmpl = Template(filename="email.tpl")
     txt = tmpl.render(projects=projects)
