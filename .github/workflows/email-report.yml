@@ -22,7 +22,7 @@ jobs:
       - run: pip install -r requirements.txt
         if: steps.cache-virtualenv.outputs.cache-hit != 'true'
 
-      - run: python project_status.py
+      - run: python projects_status.py
         env:
           HARVEST_ID: ${{ secrets.HARVEST_ID }}
           HARVEST_TOKEN: ${{ secrets.HARVEST_TOKEN }}
