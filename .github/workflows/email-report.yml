@@ -32,9 +32,9 @@ jobs:
         with:
           server_address: smtp.gmail.com
           server_port: 465
-          username: ""
-          password: ""
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
           subject: [Harvest] Project Budget Tracking
           html_body: email.html
-          from: ""
-          to: ""
+          from: ${{ secrets.ACCOUNT_EMAIL }}
+          to: ${{ secrets.ACCOUNT_EMAIL }}
