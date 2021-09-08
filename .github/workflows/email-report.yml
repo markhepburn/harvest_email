@@ -1,0 +1,35 @@
+name: Harvest Budget Summary Report
+on:
+  schedule:
+    - cron: "0 22 * * THU"      # 8am Fri, AEST
+
+jobs:
+  Send-Email:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - uses: syphar/restore-virtualenv@v1
+        id: cache-virtualenv
+
+      - uses: syphar/restore-pip-download-cache@v1
+        if: steps.cache-virtualenv.outputs.cache-hit != 'true'
+
+    - run: pip install -r requirements.txt
+      if: steps.cache-virtualenv.outputs.cache-hit != 'true'
+
+    - run: python project_status.py
+
+    - uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 465
+        username: ""
+        password: ""
+        subject: [Harvest] Project Budget Tracking
+        html_body: ""          # file name
+        from: ""
+        to: ""
