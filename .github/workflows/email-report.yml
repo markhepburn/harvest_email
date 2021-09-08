@@ -36,6 +36,6 @@ jobs:
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: "[Harvest] Project Budget Tracking"
-          html_body: email.html
+          html_body: file://email.html
           from: ${{ secrets.ACCOUNT_EMAIL }}
           to: ${{ secrets.ACCOUNT_EMAIL }}
