@@ -74,9 +74,17 @@ def enrich_data(projects):
 def format_email(projects):
     tmpl = Template(filename="email.tpl")
     txt = tmpl.render(projects=projects)
-    print(txt)
+    return txt
+
+
+def main():
+    confg = Config()
+    projects = confg.load_and_prioritise()
+    projects = enrich_data(projects)
+    txt = format_email(projects)
+    with open('email.html', 'w') as f:
+        f.write(txt)
 
 
 if __name__ == '__main__':
-    print('Hello world')
-    # main()
+    main()

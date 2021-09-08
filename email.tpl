@@ -1,4 +1,9 @@
-My Projects:
+<%!
+import datetime
+today = datetime.date.today()
+%>
+
+<h1>Project status as at ${today.strftime('%d %b, %Y')}</h1>
 
 <table>
   <thead>
