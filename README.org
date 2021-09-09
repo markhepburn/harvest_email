@@ -1,0 +1,48 @@
+#+STARTUP: showall
+#+OPTIONS: ^:nil
+
+* Overview
+
+  Our business uses Harvest for project time-tracking.  Try as I
+  might, I struggle to reconcile my inclination to focus on technical
+  challenges, with the need to stay on top of all the work that's
+  happening.  This is a simple project to send myself a regular
+  project budget-status email, so it is always front of mind.  It uses
+  the [[https://help.getharvest.com/api-v2/][Harvest API]], and Github Actions for automation.
+
+* Want to run your own?
+
+  Fork this repository!  It should run as-is, after configuration.
+
+  You will need to create a [[https://help.getharvest.com/api-v2/authentication-api/authentication/authentication/][personal access token]] for the API.  Note
+  that some API calls require admin privileges (I haven't checked
+  against a project-manager role).  It is also worth noting the
+  [[https://help.getharvest.com/api-v2/introduction/overview/general/][overview page]].  This script will include your configured email
+  address in the User-Agent header as they require.
+
+  You will need to create the following [[https://docs.github.com/en/actions/reference/encrypted-secrets][secrets]] for the action:
+
+  | Secret Name   | Description                                                                                |
+  |---------------+--------------------------------------------------------------------------------------------|
+  | HARVEST_ID    | The company account ID                                                                     |
+  | HARVEST_TOKEN | The [[https://help.getharvest.com/api-v2/authentication-api/authentication/authentication/][personal access token]] you created                                                      |
+  | ACCOUNT_EMAIL | The address that will receive (and send) this email.  Will also be used in the User-Agent. |
+  | SMTP_USERNAME | The gmail (hardcoded) email address; may be the same as ACCOUNT_EMAIL                      |
+  | SMTP_PASSWORD | The gmail password associated.  (May be an [[https://support.google.com/accounts/answer/185833?hl=en][application password]])                           |
+
+  It uses [[https://docs.makotemplates.org/en/latest/][Mako Templates]] if you need to edit the email output (and you
+  probably do, not much attention has been paid there yet).
+
+  The two API calls used are:
+  - https://api.harvestapp.com/v2/users/me/project_assignments for my
+    personal projects (seems to be undocumented?)
+  - A listing of active projects:
+    https://api.harvestapp.com/v2/reports/project_budget?is_active=true
+
+  Check privileges needed as appropriate.
+
+* TODO
+
+  - [ ] Styling!  For eg, percentage bar-plot, colour based on how
+    close to the budget we are, etc.
+  - [ ] Add linking through to individual projects
