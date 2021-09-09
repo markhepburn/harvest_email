@@ -41,8 +41,16 @@
 
   Check privileges needed as appropriate.
 
-* TODO
+** Local Development
 
-  - [ ] Styling!  For eg, percentage bar-plot, colour based on how
-    close to the budget we are, etc.
-  - [ ] Add linking through to individual projects
+   You have two options when creating the initial ~HarvestAPI~ object;
+   pass it a dictionary with your configuration variables above (it
+   only needs the first three), or by default it will load from the
+   environment.  I prefer the latter, using [[https://direnv.net/][direnv]] (the ~.envrc~ file
+   is in ~.gitignore~).  It also has [[https://github.com/wbolster/emacs-direnv][Emacs support]].
+
+** TODO 
+
+   - [ ] Styling!  For eg, percentage bar-plot, colour based on how
+     close to the budget we are, etc.
+   - [ ] Add linking through to individual projects
