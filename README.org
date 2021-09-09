@@ -41,6 +41,9 @@
 
   Check privileges needed as appropriate.
 
+  The schedule is currently hard-coded as well, and you probably want
+  to change that.
+
 ** Local Development
 
    You have two options when creating the initial ~HarvestAPI~ object;
