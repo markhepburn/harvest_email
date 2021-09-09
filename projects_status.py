@@ -16,7 +16,6 @@ class HarvestAPI:
         # Throw a KeyError if configuration isn't set:
         self.account_id = envdict['HARVEST_ID']
         self.account_token = envdict['HARVEST_TOKEN']
-        self.account_user_id = envdict['HARVEST_USER_ID']
         self.account_email = envdict['ACCOUNT_EMAIL']
 
 
