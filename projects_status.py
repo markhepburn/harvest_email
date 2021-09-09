@@ -5,7 +5,7 @@ from mako.template import Template
 import requests
 
 
-class Config:
+class HarvestAPI:
     def __init__(self, envdict=None):
         super().__init__()
         if not envdict:
@@ -78,8 +78,8 @@ def format_email(projects):
 
 
 def main():
-    confg = Config()
-    projects = confg.load_and_prioritise()
+    api = HarvestAPI()
+    projects = api.load_and_prioritise()
     projects = enrich_data(projects)
     txt = format_email(projects)
     with open('email.html', 'w') as f:
