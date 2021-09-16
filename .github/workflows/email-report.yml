@@ -21,6 +21,9 @@ jobs:
 
       - run: pip install -r requirements.txt
         if: steps.cache-virtualenv.outputs.cache-hit != 'true'
+        
+      - run: find /home/runner/.virtualenvs/.venv/lib
+      - run: echo "PATH is $PATH"
 
       - run: python projects_status.py
         env:
