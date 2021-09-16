@@ -24,6 +24,8 @@ jobs:
         
       - run: find /home/runner/.virtualenvs/.venv/lib
       - run: echo "PATH is $PATH"
+      - run: which python
+      - run: which python3
 
       - run: python projects_status.py
         env:
