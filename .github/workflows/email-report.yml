@@ -22,8 +22,9 @@ jobs:
       - run: pip install -r requirements.txt
         if: steps.cache-virtualenv.outputs.cache-hit != 'true'
         
-      - run: find /home/runner/.virtualenvs/.venv/lib
+      - run: find /home/runner/.virtualenvs/.venv/bin
       - run: echo "PATH is $PATH"
+      - run: which pip
       - run: which python
       - run: which python3
       - run: python -c "import os; print(os.getenv('PATH'))"
