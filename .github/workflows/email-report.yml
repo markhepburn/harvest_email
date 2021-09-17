@@ -23,7 +23,7 @@ jobs:
         if: steps.cache-virtualenv.outputs.cache-hit != 'true'
         
       - run: find /home/runner/.virtualenvs/.venv/bin
-      - run: echo "PATH is $PATH"
+      - run: echo "PYTHONHOME is $PYTHONHOME"
       - run: which pip
       - run: which python
       - run: which python3
