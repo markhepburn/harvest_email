@@ -28,6 +28,7 @@ jobs:
       - run: which python
       - run: which python3
       - run: python -c "import os; print(os.getenv('PATH'))"
+      - run: ls -l /home/runner/.virtualenvs/.venv/bin
 
       - run: python projects_status.py
         env:
