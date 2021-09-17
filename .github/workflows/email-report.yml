@@ -26,6 +26,7 @@ jobs:
       - run: echo "PATH is $PATH"
       - run: which python
       - run: which python3
+      - run: python -c "import os; print(os.getenv('PATH'))"
 
       - run: python projects_status.py
         env:
