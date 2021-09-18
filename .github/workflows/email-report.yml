@@ -35,7 +35,7 @@ jobs:
           HARVEST_ID: ${{ secrets.HARVEST_ID }}
           HARVEST_TOKEN: ${{ secrets.HARVEST_TOKEN }}
           ACCOUNT_EMAIL: ${{ secrets.ACCOUNT_EMAIL }}
-          PYTHONHOME: ${{ env.VIRTUAL_ENV }}
+          PYTHONPATH: ${{ env.VIRTUAL_ENV }}/lib/python3.9/site-packages
 
       - uses: dawidd6/action-send-mail@v3
         with:
