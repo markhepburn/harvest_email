@@ -1,2 +1,4 @@
 /.envrc
 /email.html
+/.dir-locals.el
+/template/
