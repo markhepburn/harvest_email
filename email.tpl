@@ -81,7 +81,7 @@ today = datetime.date.today()
                                   <td>${project['client_name']}</td>
                                   <td>${project['budget_spent']}</td>
                                   <td>${project['budget']}</td>
-                                  <td>${project['budget_remaining']}</td>
+                                  <td style="${'background-color: ' + project['background'] + ';' if project['background'] else ''}">${project['budget_remaining']}</td>
                                 </tr>
                                 % endfor
                               </tbody>

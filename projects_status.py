@@ -64,9 +64,29 @@ class HarvestAPI:
         return prioritised
 
 
+def colour_for_pctg(pctg):
+    # [0.0.. 0.8) blank
+    # [0.8..1] gradient
+    # >1 red
+    # range between 0x66 (min) and 0x00 (max)
+    # clamp between 0.8 and 1:
+    pctg_min, pctg_max = 0.8, 1.0
+    if pctg < pctg_min:
+        return ''
+    pctg = max(pctg_min, pctg)
+    pctg = min(pctg_max, pctg)
+    val = (0x66 - 0x00) * (pctg_max - pctg) / (pctg_max - pctg_min)
+    return f'#cc{int(val):02x}00'
+
+
 def enrich_data(projects):
-    """Placeholder for now; thinking is to add styling like 'red for
-    getting hot', without calculating that in the template"""
+    """Placeholder for encriching raw data; currently just styling
+    like 'red for getting hot', without calculating that in the
+    template."""
+    for project in projects:
+        # between #cc6600 to #cc0000
+        pctg = project['budget_spent'] / project['budget']
+        project['background'] = colour_for_pctg(pctg)
     return projects
 
 
