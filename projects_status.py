@@ -84,7 +84,7 @@ def enrich_data(projects):
     colour or formatting conveniences."""
     for project in projects:
         pctg = project['budget_spent'] / project['budget']
-        project['pctg'] = int(pctg * 100)
+        project['pct_remain'] = int(100 * (project['budget'] - project['budget_spent']) / project['budget'])
         # between #cc6600 to #cc0000
         project['background'] = colour_for_pctg(pctg)
     return projects
