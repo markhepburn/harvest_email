@@ -80,12 +80,12 @@ def colour_for_pctg(pctg):
 
 
 def enrich_data(projects):
-    """Placeholder for encriching raw data; currently just styling
-    like 'red for getting hot', without calculating that in the
-    template."""
+    """Placeholder for encriching raw data, eg calculating background
+    colour or formatting conveniences."""
     for project in projects:
-        # between #cc6600 to #cc0000
         pctg = project['budget_spent'] / project['budget']
+        project['pctg'] = int(pctg * 100)
+        # between #cc6600 to #cc0000
         project['background'] = colour_for_pctg(pctg)
     return projects
 
